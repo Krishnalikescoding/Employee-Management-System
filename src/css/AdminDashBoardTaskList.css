@@ -1,0 +1,167 @@
+/* ── Section Title ── */
+.main-container h2 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  padding: 0 0.25rem;
+}
+
+/* ── Task List Wrapper ── */
+.taskList-container {
+  width: 100%;
+  background-color: #1a1a1a;
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow-y: auto;
+  max-height: 260px;
+  box-sizing: border-box;
+
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.taskList-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.taskList-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.taskList-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+/* ── Single Task Row ── */
+.taskList {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  transition: background-color 0.2s;
+}
+
+.taskList:last-child {
+  border-bottom: none;
+}
+
+.taskList:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ── Column Header Row (optional but recommended) ── */
+.taskList-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  background-color: #1a1a1a;
+  z-index: 1;
+}
+
+.taskList-header span {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Cell Styles ── */
+.assignedTo {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 400;
+}
+
+.assignedTask {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 400;
+}
+
+/* ── Status Badge ── */
+.status {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+/* Status color variants */
+.status.completed {
+  background-color: rgba(78, 203, 113, 0.12);
+  color: #4ecb71;
+  border: 0.5px solid rgba(78, 203, 113, 0.3);
+}
+
+.status.new {
+  background-color: rgba(79, 142, 247, 0.12);
+  color: #4f8ef7;
+  border: 0.5px solid rgba(79, 142, 247, 0.3);
+}
+
+.status.accepted {
+  background-color: rgba(247, 201, 72, 0.12);
+  color: #f7c948;
+  border: 0.5px solid rgba(247, 201, 72, 0.3);
+}
+
+.status.failed {
+  background-color: rgba(247, 95, 95, 0.12);
+  color: #f75f5f;
+  border: 0.5px solid rgba(247, 95, 95, 0.3);
+}
+
+/* ── Tablet ── */
+@media (max-width: 768px) {
+  .taskList,
+  .taskList-header {
+    grid-template-columns: 1fr 1.5fr 1fr;
+    padding: 0.85rem 1.25rem;
+  }
+
+  .assignedTo,
+  .assignedTask {
+    font-size: 13px;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .taskList-container {
+    border-radius: 12px;
+    max-height: 220px;
+  }
+
+  .taskList,
+  .taskList-header {
+    grid-template-columns: 1fr 1fr;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Hide assignedTo on very small screens */
+  .taskList .assignedTo,
+  .taskList-header span:first-child {
+    display: none;
+  }
+
+  .assignedTask {
+    font-size: 13px;
+  }
+
+  .status {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+}

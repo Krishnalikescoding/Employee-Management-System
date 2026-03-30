@@ -1,19 +1,27 @@
 /* ── Page ── */
 .main-container {
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
   background-color: #111;
   padding: 2rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* ── Header ── */
+/* ── Back Button Header ── */
 .main-container .header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   width: 100%;
-  max-width: 640px;
+  max-width: 1100px;
+}
+.createTaskhead{
+  display: flex;
+  padding-top: 16px;
+  align-items: center;
 }
 
 .back-btn {
@@ -36,7 +44,7 @@
 
 .back-btn h2 {
   color: #fff;
-  font-size: 20px;
+  font-size: 10px;
   font-weight: 500;
   margin: 0;
 }
@@ -47,25 +55,59 @@ form {
   border: 0.5px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
-  max-width: 640px;
+  max-width: 1100px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* ── Field groups ── */
+/* ── Left column fields ── */
 .task-title,
-.description,
 .date,
 .assignedTo,
 .category {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap:6px;
+  grid-column: 1;
 }
 
+/* ── Description spans full height on the right ── */
+.description {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: 1 / 5;
+}
+
+.description textarea {
+  flex: 1;
+}
+
+/* ── Create button spans full width ── */
+.createTask-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+  background-color: #fff;
+  color: #111;
+  border: none;
+  border-radius: 999px;
+  padding: 13px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background-color 0.2s;
+  font-family: inherit;
+}
+
+.createTask-btn:hover {
+  background-color: rgba(255, 255, 255, 0.88);
+}
+
+/* ── Field labels ── */
 .task-title h2,
 .description h2,
 .date h2,
@@ -78,7 +120,7 @@ form {
   letter-spacing: 0.02em;
 }
 
-/* ── Inputs ── */
+/* ── Text & Date Inputs ── */
 form input[type="text"],
 form input[type="date"] {
   background-color: #111;
@@ -103,7 +145,6 @@ form input[type="text"]::placeholder {
   color: rgba(255, 255, 255, 0.2);
 }
 
-/* Date picker icon fix for dark bg */
 form input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   opacity: 0.4;
@@ -121,8 +162,8 @@ form textarea {
   outline: none;
   width: 100%;
   box-sizing: border-box;
-  resize: vertical;
-  min-height: 110px;
+  resize: none;
+  min-height: 250px;
   transition: border-color 0.2s;
   font-family: inherit;
   line-height: 1.6;
@@ -132,93 +173,71 @@ form textarea:focus {
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* ── Submit Button ── */
-.createTask-btn {
-  width: 100%;
-  background-color: #fff;
-  color: #111;
-  border: none;
-  border-radius: 999px;
-  padding: 13px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 4px;
-  transition: background-color 0.2s;
-  font-family: inherit;
-}
-
-.createTask-btn:hover {
-  background-color: rgba(255, 255, 255, 0.88);
-}
-
 /* ── Tablet (≤ 768px) ── */
 @media (max-width: 768px) {
   .main-container {
     padding: 1.5rem 1.25rem;
+    justify-content: flex-start;
+    overflow: auto;
+    height: auto;
+    min-height: 100%;
   }
 
-  .back-btn h2 {
-    font-size: 18px;
-  }
-
-  .back-btn .material-symbols-outlined {
-    font-size: 24px;
+  .main-container .header {
+    max-width: 100%;
   }
 
   form {
+    grid-template-columns: 1fr;
+    max-width: 100%;
     padding: 1.5rem;
     gap: 1rem;
     border-radius: 14px;
   }
 
+  .task-title,
+  .date,
+  .assignedTo,
+  .category {
+    grid-column: 1;
+  }
+
+  .description {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .createTask-btn {
+    grid-column: 1;
+  }
+
+  form textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+
+  .back-btn h2 { font-size: 18px; }
+  .back-btn .material-symbols-outlined { font-size: 24px; }
+
   .task-title h2,
   .description h2,
   .date h2,
   .assignedTo h2,
-  .category h2 {
-    font-size: 12px;
-  }
+  .category h2 { font-size: 12px; }
 
   form input[type="text"],
-  form input[type="date"] {
-    padding: 11px 14px;
-    font-size: 13px;
-  }
-
-  form textarea {
-    padding: 11px 14px;
-    font-size: 13px;
-    min-height: 95px;
-  }
-
-  .createTask-btn {
-    padding: 12px;
-    font-size: 13px;
-  }
+  form input[type="date"] { padding: 11px 14px; font-size: 13px; }
+  form textarea { padding: 11px 14px; font-size: 13px; }
+  .createTask-btn { padding: 12px; font-size: 13px; }
 }
 
 /* ── Mobile (≤ 480px) ── */
 @media (max-width: 480px) {
-  .main-container {
-    padding: 1rem;
-  }
-
-  .main-container .header {
-    margin-bottom: 1.25rem;
-  }
-
-  .back-btn h2 {
-    font-size: 16px;
-  }
-
-  .back-btn .material-symbols-outlined {
-    font-size: 22px;
-  }
-
-  .back-btn {
-    gap: 8px;
-  }
+  .main-container { padding: 1rem; }
+  .main-container .header { margin-bottom: 1.25rem; }
+  .back-btn h2 { font-size: 16px; }
+  .back-btn .material-symbols-outlined { font-size: 22px; }
+  .back-btn { gap: 8px; }
 
   form {
     padding: 1.1rem 1rem;
@@ -230,15 +249,10 @@ form textarea:focus {
   .description h2,
   .date h2,
   .assignedTo h2,
-  .category h2 {
-    font-size: 11px;
-  }
+  .category h2 { font-size: 11px; }
 
   form input[type="text"],
-  form input[type="date"] {
-    padding: 10px 14px;
-    font-size: 13px;
-  }
+  form input[type="date"] { padding: 10px 14px; font-size: 13px; }
 
   form textarea {
     padding: 10px 14px;
@@ -247,9 +261,5 @@ form textarea:focus {
     border-radius: 10px;
   }
 
-  .createTask-btn {
-    padding: 12px;
-    font-size: 13px;
-    margin-top: 2px;
-  }
+  .createTask-btn { padding: 12px; font-size: 13px; margin-top: 2px; }
 }
