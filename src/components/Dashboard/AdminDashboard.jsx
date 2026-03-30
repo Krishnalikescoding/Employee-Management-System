@@ -1,6 +1,6 @@
 import React from "react";
 import backButton from "../../assets/back-button.svg";
-
+import "../../css/AdminDashboard.css"
 
 const AdminDashboard = () => {
     return (
