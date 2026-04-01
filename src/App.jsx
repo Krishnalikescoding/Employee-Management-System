@@ -15,15 +15,15 @@ const App = () => {
   const [user, setUser] = useState(null)
   const authData = useContext(AuthContext)
 
-  // const handleLogin = (email, password) => {
-  //   if (){
+  const handleLogin = (email, password) => {
+    if (){
 
-  //   }else if(authData && authData.employees.find((e)=> )){
-  //     setUser('employee')
-  //   }else{
-  //     alert("Invalid Credentials")
-  //   }
-  // }
+    }else if(authData && authData.employees.find((e)=> )){
+      setUser('employee')
+    }else{
+      alert("Invalid Credentials")
+    }
+  }
 
   return (
     <>
