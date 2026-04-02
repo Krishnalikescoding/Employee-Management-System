@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../css/Login.css";
 
-const Login = () => {
+const Login = ({handleLogin}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const SubmitHandeler = (e) => {
