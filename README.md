@@ -46,7 +46,7 @@ src/
 │   │   ├── AdminDashboard.jsx
 │   │   └── EmployeeDashboard.jsx
 │   ├── other/
-|   |   |__ AdminDashBoardTaskList.jsx
+│   │   ├── AdminDashBoardTaskList.jsx
 │   │   ├── Header.jsx
 │   │   ├── TaskNumber.jsx
 │   │   └── CreateTaskForm.jsx
@@ -57,7 +57,7 @@ src/
 │       ├── CompleteTask.jsx
 │       └── FailedTask.jsx
 ├── context/
-        |__ AuthProvider.jsx
+│   └── AuthProvider.jsx
 ├── css/
 │   ├── Login.css
 │   ├── Header.css
@@ -65,9 +65,11 @@ src/
 │   ├── TaskList.css
 │   ├── CreateTaskForm.css
 │   └── AdminDashBoardTaskList.css
-├── pages/
 ├── utils/
+│   └── localStorage.jsx
+├── App.css
 ├── App.jsx
+├── index.css
 └── main.jsx
 ```
 
