@@ -4,12 +4,13 @@ import EmployeeDashboard from './components/Dashboard/EmployeeDashboard.jsx'
 import AdminDashboard from './components/Dashboard/AdminDashboard.jsx'
 import { getLocalStorage } from './utils/localStorage.jsx'
 import { AuthContext } from './context/AuthProvider.jsx'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 const App = () => {
 
   const [user, setUser] = useState(null)
   const [loggedInUser, setLoggedInUser] = useState(null)
+  const [authChecked, setAuthChecked] = useState(false)
   const authData = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -18,12 +19,15 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    if (authData) {
-      const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"))
-      if (loggedInUser) {
-        setUser(loggedInUser.role)
+    const stored = localStorage.getItem("loggedInUser")
+    if (stored) {
+      try {
+        setUser(JSON.parse(stored).role)
+      } catch {
+        localStorage.removeItem("loggedInUser")
       }
     }
+    setAuthChecked(true)
   }, [authData])
 
   const handleLogin = (email, password) => {
@@ -42,11 +46,25 @@ const App = () => {
     }
   }
 
+  if (!authChecked) {
+    return <div style={{ minHeight: '100vh', background: '#111' }} />
+  }
+
   return (
     <Routes>
       <Route path='/' element={<Login handleLogin={handleLogin} />} />
-      <Route path='/admin' element={user === 'admin' && <AdminDashboard />} />
-      <Route path='/employee' element={user === 'employee' && <EmployeeDashboard data={loggedInUser} />} />
+      <Route
+        path='/admin'
+        element={user === 'admin' ? <AdminDashboard /> : <Navigate to="/" replace />}
+      />
+      <Route
+        path='/employee'
+        element={
+          user === 'employee'
+            ? <EmployeeDashboard data={loggedInUser} />
+            : <Navigate to="/" replace />
+        }
+      />
     </Routes>
   )
 }
