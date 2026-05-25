@@ -1,48 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import Login from './components/Auth/Login.jsx'
 import EmployeeDashboard from './components/Dashboard/EmployeeDashboard.jsx'
 import AdminDashboard from './components/Dashboard/AdminDashboard.jsx'
-import { getLocalStorage } from './utils/localStorage.jsx'
 import { AuthContext } from './context/AuthProvider.jsx'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 const App = () => {
-
-  const [user, setUser] = useState(null)
-  const [loggedInUser, setLoggedInUser] = useState(null)
-  const [authChecked, setAuthChecked] = useState(false)
-  const authData = useContext(AuthContext)
+  const { user, authChecked, login } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    getLocalStorage()
-  }, [])
+  const handleLogin = async (email, password) => {
+    try {
+      const loggedInUser = await login(email, password)
 
-  useEffect(() => {
-    const stored = localStorage.getItem("loggedInUser")
-    if (stored) {
-      try {
-        setUser(JSON.parse(stored).role)
-      } catch {
-        localStorage.removeItem("loggedInUser")
+      if (loggedInUser.role === 'admin') {
+        navigate('/admin')
+      } else {
+        navigate('/employee')
       }
-    }
-    setAuthChecked(true)
-  }, [authData])
-
-  const handleLogin = (email, password) => {
-    if (authData && authData.admin.find((e) => email == e.email && e.password == password)) {
-      setUser('admin')
-      localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }))
-      navigate('/admin')  // ← added
-    } else if (authData && authData.employees.find((e) => email == e.email && e.password == password)) {
-      const employeeData = authData.employees.find((e) => email == e.email && e.password == password)
-      setUser('employee')
-      setLoggedInUser(employeeData)
-      localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee' }))
-      navigate('/employee')  // ← added
-    } else {
-      alert("Invalid Credentials")
+    } catch (error) {
+      alert(error.message || 'Invalid credentials')
     }
   }
 
@@ -55,15 +32,11 @@ const App = () => {
       <Route path='/' element={<Login handleLogin={handleLogin} />} />
       <Route
         path='/admin'
-        element={user === 'admin' ? <AdminDashboard /> : <Navigate to="/" replace />}
+        element={user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/" replace />}
       />
       <Route
         path='/employee'
-        element={
-          user === 'employee'
-            ? <EmployeeDashboard data={loggedInUser} />
-            : <Navigate to="/" replace />
-        }
+        element={user?.role === 'employee' ? <EmployeeDashboard /> : <Navigate to="/" replace />}
       />
     </Routes>
   )
