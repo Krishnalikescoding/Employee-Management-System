@@ -1,265 +1,243 @@
-/* ── Page ── */
-.main-container {
-  height: 100%;
+/* Create Task — scoped to .create-task-section only */
+
+.create-task-section {
   width: 100%;
-  background-color: #111;
-  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 2rem;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
 }
 
-/* ── Back Button Header ── */
-.main-container .header {
-  margin-bottom: 1.5rem;
-  width: 100%;
-  max-width: 1100px;
-}
-.createTaskhead{
-  display: flex;
-  padding-top: 16px;
-  align-items: center;
+.create-form-header {
+  margin-bottom: 1.25rem;
 }
 
-.back-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.back-btn .material-symbols-outlined {
-  font-size: 28px;
-  color: rgba(255, 255, 255, 0.55);
-  cursor: pointer;
-  transition: color 0.2s;
-  user-select: none;
-}
-
-.back-btn .material-symbols-outlined:hover {
+.create-form-header h2 {
   color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.02em;
 }
 
-.back-btn h2 {
-  color: #fff;
-  font-size: 10px;
-  font-weight: 500;
+.create-form-header p {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.875rem;
   margin: 0;
+  line-height: 1.5;
 }
 
-/* ── Form ── */
-form {
-  background-color: #1a1a1a;
+.form-alert {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.form-alert-error {
+  background: rgba(247, 95, 95, 0.12);
+  border: 0.5px solid rgba(247, 95, 95, 0.35);
+  color: #f87171;
+}
+
+.form-alert-success {
+  background: rgba(78, 203, 113, 0.12);
+  border: 0.5px solid rgba(78, 203, 113, 0.35);
+  color: #4ecb71;
+}
+
+.create-task-form {
+  background: #1a1a1a;
   border: 0.5px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
   gap: 1.25rem;
-  max-width: 1100px;
+}
+
+.form-section {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.form-section legend {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 0 0.5rem;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field-full {
+  width: 100%;
+}
+
+.field-grow {
+  min-width: 0;
+}
+
+.field label {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 400;
+}
+
+.char-count {
+  float: right;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.create-task-form input[type="text"],
+.create-task-form input[type="date"],
+.create-task-form input[type="time"],
+.create-task-form input[type="url"],
+.create-task-form select,
+.create-task-form textarea {
+  background: #111;
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
   width: 100%;
   box-sizing: border-box;
+  transition: border-color 0.2s;
 }
 
-/* ── Left column fields ── */
-.task-title,
-.date,
-.assignedTo,
-.category {
-  display: flex;
-  flex-direction: column;
-  gap:6px;
-  grid-column: 1;
+.create-task-form input[type="text"],
+.create-task-form input[type="date"],
+.create-task-form input[type="time"],
+.create-task-form input[type="url"],
+.create-task-form select {
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
 }
 
-/* ── Description spans full height on the right ── */
-.description {
-  display: flex;
-  flex-direction: column;
-  grid-column: 2;
-  grid-row: 1 / 5;
+.create-task-form textarea {
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.55;
 }
 
-.description textarea {
-  flex: 1;
+.create-task-form input:focus,
+.create-task-form select:focus,
+.create-task-form textarea:focus {
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* ── Create button spans full width ── */
+.create-task-form input::placeholder,
+.create-task-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.create-task-form select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff55' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.create-task-form select option {
+  background: #111;
+  color: #fff;
+}
+
+.create-task-form input[type="date"]::-webkit-calendar-picker-indicator,
+.create-task-form input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.45;
+  cursor: pointer;
+}
+
+.file-input {
+  padding: 0.5rem 0 !important;
+  border: none !important;
+  background: transparent !important;
+  font-size: 0.8125rem !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.file-list {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0.25rem 0 0;
+}
+
+.workload-hint {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0.15rem 0 0;
+}
+
+.workload-high {
+  color: #f7c948;
+}
+
 .createTask-btn {
-  grid-column: 1 / -1;
   width: 100%;
-  background-color: #fff;
+  margin-top: 0.25rem;
+  padding: 0.85rem 1.25rem;
+  background: #fff;
   color: #111;
   border: none;
   border-radius: 999px;
-  padding: 13px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 0.9375rem;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 4px;
-  transition: background-color 0.2s;
   font-family: inherit;
+  transition: background 0.2s, opacity 0.2s;
 }
 
-.createTask-btn:hover {
-  background-color: rgba(255, 255, 255, 0.88);
+.createTask-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.9);
 }
 
-/* ── Field labels ── */
-.task-title h2,
-.description h2,
-.date h2,
-.assignedTo h2,
-.category h2 {
-  font-size: 13px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.55);
-  margin: 0;
-  letter-spacing: 0.02em;
+.createTask-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
-/* ── Text & Date Inputs ── */
-form input[type="text"],
-form input[type="date"] {
-  background-color: #111;
-  border: 0.5px solid rgba(255, 255, 255, 0.15);
-  border-radius: 999px;
-  padding: 12px 16px;
-  font-size: 14px;
-  color: #fff;
-  outline: none;
-  width: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-  font-family: inherit;
-}
-
-form input[type="text"]:focus,
-form input[type="date"]:focus {
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-form input[type="text"]::placeholder {
-  color: rgba(255, 255, 255, 0.2);
-}
-
-form input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  opacity: 0.4;
-  cursor: pointer;
-}
-
-/* ── Textarea ── */
-form textarea {
-  background-color: #111;
-  border: 0.5px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 14px;
-  color: #fff;
-  outline: none;
-  width: 100%;
-  box-sizing: border-box;
-  resize: none;
-  min-height: 250px;
-  transition: border-color 0.2s;
-  font-family: inherit;
-  line-height: 1.6;
-}
-
-form textarea:focus {
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-/* ── Tablet (≤ 768px) ── */
 @media (max-width: 768px) {
-  .main-container {
-    padding: 1.5rem 1.25rem;
-    justify-content: flex-start;
-    overflow: auto;
-    height: auto;
-    min-height: 100%;
+  .create-task-section {
+    padding: 1.25rem 1rem 1.5rem;
   }
 
-  .main-container .header {
-    max-width: 100%;
+  .create-form-header h2 {
+    font-size: 1.25rem;
   }
 
-  form {
+  .create-task-form {
+    padding: 1.15rem;
+  }
+
+  .form-row {
     grid-template-columns: 1fr;
-    max-width: 100%;
-    padding: 1.5rem;
-    gap: 1rem;
-    border-radius: 14px;
   }
-
-  .task-title,
-  .date,
-  .assignedTo,
-  .category {
-    grid-column: 1;
-  }
-
-  .description {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .createTask-btn {
-    grid-column: 1;
-  }
-
-  form textarea {
-    min-height: 110px;
-    resize: vertical;
-  }
-
-  .back-btn h2 { font-size: 18px; }
-  .back-btn .material-symbols-outlined { font-size: 24px; }
-
-  .task-title h2,
-  .description h2,
-  .date h2,
-  .assignedTo h2,
-  .category h2 { font-size: 12px; }
-
-  form input[type="text"],
-  form input[type="date"] { padding: 11px 14px; font-size: 13px; }
-  form textarea { padding: 11px 14px; font-size: 13px; }
-  .createTask-btn { padding: 12px; font-size: 13px; }
-}
-
-/* ── Mobile (≤ 480px) ── */
-@media (max-width: 480px) {
-  .main-container { padding: 1rem; }
-  .main-container .header { margin-bottom: 1.25rem; }
-  .back-btn h2 { font-size: 16px; }
-  .back-btn .material-symbols-outlined { font-size: 22px; }
-  .back-btn { gap: 8px; }
-
-  form {
-    padding: 1.1rem 1rem;
-    border-radius: 12px;
-    gap: 0.85rem;
-  }
-
-  .task-title h2,
-  .description h2,
-  .date h2,
-  .assignedTo h2,
-  .category h2 { font-size: 11px; }
-
-  form input[type="text"],
-  form input[type="date"] { padding: 10px 14px; font-size: 13px; }
-
-  form textarea {
-    padding: 10px 14px;
-    font-size: 13px;
-    min-height: 85px;
-    border-radius: 10px;
-  }
-
-  .createTask-btn { padding: 12px; font-size: 13px; margin-top: 2px; }
 }

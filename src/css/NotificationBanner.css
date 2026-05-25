@@ -1,0 +1,53 @@
+.notification-banner {
+  margin: 0 2rem 1rem;
+  padding: 1rem 1.25rem;
+  background: #1a1a1a;
+  border: 0.5px solid rgba(79, 142, 247, 0.3);
+  border-radius: 12px;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.notification-header h3 {
+  color: #fff;
+  font-size: 14px;
+  margin: 0;
+}
+
+.notification-header button {
+  background: transparent;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.notification-banner ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-banner li {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  padding: 6px 0;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.06);
+}
+
+.notification-banner li.unread {
+  color: #fff;
+}
+
+.notification-note {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0.5rem 0 0;
+}

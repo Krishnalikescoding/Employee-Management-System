@@ -4,8 +4,11 @@ export const apiRequest = async (path, options = {}) => {
   const token = localStorage.getItem('authToken')
 
   const headers = {
-    'Content-Type': 'application/json',
     ...(options.headers || {}),
+  }
+
+  if (!(options.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json'
   }
 
   if (token) {
@@ -33,7 +36,23 @@ export const loginRequest = (email, password) =>
   })
 
 export const getMeRequest = () => apiRequest('/api/auth/me')
-
 export const getMyTasksRequest = () => apiRequest('/api/tasks/my')
-
 export const getAllTasksRequest = () => apiRequest('/api/tasks/all')
+export const getEmployeesRequest = () => apiRequest('/api/users/employees')
+export const getEmployeeWorkloadRequest = (id) => apiRequest(`/api/users/employees/${id}/workload`)
+
+export const createTaskRequest = (formData) =>
+  apiRequest('/api/tasks', {
+    method: 'POST',
+    body: formData,
+  })
+
+export const updateTaskStatusRequest = (taskId, action) =>
+  apiRequest(`/api/tasks/${taskId}/status`, {
+    method: 'PATCH',
+    body: JSON.stringify({ action }),
+  })
+
+export const getNotificationsRequest = () => apiRequest('/api/notifications')
+export const markNotificationsReadRequest = () =>
+  apiRequest('/api/notifications/read', { method: 'PATCH' })

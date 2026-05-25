@@ -1,41 +1,126 @@
-import React from 'react'
+import React, { useState } from "react";
+import { updateTaskStatusRequest } from "../../api/api.js";
+import { PRIORITY_CLASS, STATUS_CLASS, STATUS_LABELS } from "../../constants/taskOptions.js";
 import "../../css/TaskList.css";
 
-const formatDate = (dateStr) => {
-  if (!dateStr) return ''
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
-}
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const TaskList = ({ tasks = [] }) => {
+const formatDateTime = (dateStr, timeStr) => {
+  if (!dateStr) return "";
+  const date = new Date(`${dateStr}T${timeStr || "00:00:00"}`);
+  return date.toLocaleString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: timeStr ? "2-digit" : undefined,
+    minute: timeStr ? "2-digit" : undefined,
+  });
+};
+
+const TaskList = ({ tasks = [], onTaskUpdated }) => {
+  const [updatingId, setUpdatingId] = useState(null);
+
+  const handleAction = async (taskId, action) => {
+    setUpdatingId(taskId);
+    try {
+      await updateTaskStatusRequest(taskId, action);
+      onTaskUpdated?.();
+    } catch (err) {
+      alert(err.message || "Could not update task");
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
   if (tasks.length === 0) {
-    return <p style={{ color: '#aaa', padding: '1rem' }}>No tasks assigned yet.</p>
+    return <p className="list-msg">No tasks assigned yet.</p>;
   }
 
   return (
     <div className="Card-Container">
-      {tasks.map((task) => (
-        <div className="Cards" key={task.id}>
-          <div className="header">
-            <div className="urgency">
-              <h2>{task.category}</h2>
-            </div>
-            <div className="assigned-date">
-              <h2>{formatDate(task.dueDate)}</h2>
-            </div>
-          </div>
-          <div className="task-body">
-            <div className="task-title">
-              <h2>{task.title}</h2>
-            </div>
-            <div className="task-description">
-              <h2>{task.description}</h2>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
+      {tasks.map((task) => {
+        const isClosed = ["completed", "failed"].includes(task.status);
+        const canAct = !isClosed;
 
-export default TaskList
+        return (
+          <div
+            className={`Cards ${PRIORITY_CLASS[task.priority]} ${STATUS_CLASS[task.status]}`}
+            key={task.id}
+          >
+            <div className="header">
+              <div className="task-meta-left">
+                <span className="task-code">{task.taskCode}</span>
+                <span className={`badge ${PRIORITY_CLASS[task.priority]}`}>
+                  {task.priority}
+                </span>
+                <span className={`badge ${STATUS_CLASS[task.status]}`}>
+                  {STATUS_LABELS[task.status]}
+                </span>
+              </div>
+              <div className="assigned-date">
+                Due: {formatDateTime(task.dueDate, task.dueTime)}
+              </div>
+            </div>
+
+            <div className="task-body">
+              <div className="task-title">
+                <h2>{task.title}</h2>
+              </div>
+              <div className="task-description">
+                <p>{task.description}</p>
+              </div>
+              <div className="task-extra">
+                <span>Tag: {task.displayTag}</span>
+                {task.estimatedCompletion && (
+                  <span>Est: {task.estimatedCompletion}</span>
+                )}
+              </div>
+
+              {task.attachments?.length > 0 && (
+                <div className="task-attachments">
+                  {task.attachments.map((file) => (
+                    <a
+                      key={file.id}
+                      href={file.fileUrl || `${API_URL}${file.filePath}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {file.fileName}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {canAct && (
+              <div className="task-actions">
+                <button
+                  type="button"
+                  className="btn-complete"
+                  disabled={updatingId === task.id}
+                  onClick={() => handleAction(task.id, "completed")}
+                >
+                  Mark Completed
+                </button>
+                <button
+                  type="button"
+                  className="btn-fail"
+                  disabled={updatingId === task.id}
+                  onClick={() => handleAction(task.id, "failed")}
+                >
+                  Mark Failed
+                </button>
+              </div>
+            )}
+
+            {task.status === "failed" && task.isOverdue && (
+              <p className="auto-fail-note">Auto-failed: past due date/time.</p>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default TaskList;
