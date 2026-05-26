@@ -90,15 +90,59 @@
 }
 
 .task-attachments {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-attachment-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.task-attachment-image {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #111;
+}
+
+.task-attachment-image img {
+  display: block;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.task-attachment-image figcaption {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 0.4rem 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-attachment-files {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 0.75rem;
 }
 
-.task-attachments a {
+.task-attachment-file {
   font-size: 12px;
   color: #4f8ef7;
+  text-decoration: none;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(79, 142, 247, 0.12);
+}
+
+.task-attachment-file:hover {
+  background: rgba(79, 142, 247, 0.2);
 }
 
 .task-actions {

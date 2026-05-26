@@ -1,7 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
+const getAuthToken = () =>
+  localStorage.getItem('authToken') || sessionStorage.getItem('authToken')
+
 export const apiRequest = async (path, options = {}) => {
-  const token = localStorage.getItem('authToken')
+  const token = getAuthToken()
 
   const headers = {
     ...(options.headers || {}),

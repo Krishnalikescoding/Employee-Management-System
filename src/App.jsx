@@ -6,12 +6,12 @@ import { AuthContext } from './context/AuthProvider.jsx'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 const App = () => {
-  const { user, authChecked, login } = useContext(AuthContext)
+  const { user, authChecked, login, loading } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (email, password, staySignedIn) => {
     try {
-      const loggedInUser = await login(email, password)
+      const loggedInUser = await login(email, password, staySignedIn)
 
       if (loggedInUser.role === 'admin') {
         navigate('/admin')
@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<Login handleLogin={handleLogin} />} />
+      <Route path='/' element={<Login handleLogin={handleLogin} loading={loading} />} />
       <Route
         path='/admin'
         element={user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/" replace />}
