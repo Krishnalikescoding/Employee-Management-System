@@ -4,15 +4,21 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  background-color: #111;
+  background: var(--bg-base);
+  background-image: radial-gradient(
+    ellipse 70% 50% at 50% -10%,
+    rgba(99, 102, 241, 0.12),
+    transparent
+  );
 }
 
 .login-card {
   width: 100%;
   max-width: 380px;
-  background-color: #1a1a1a;
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   padding: 2rem;
   box-sizing: border-box;
 }

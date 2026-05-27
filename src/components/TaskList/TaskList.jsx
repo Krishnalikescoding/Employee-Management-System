@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { updateTaskStatusRequest } from '../../api/api.js'
 import { PRIORITY_CLASS, STATUS_CLASS, STATUS_LABELS } from '../../constants/taskOptions.js'
 import { getAttachmentUrl, isImageAttachment } from '../../utils/attachments.js'
+import EmptyState from '../shared/EmptyState.jsx'
 import '../../css/TaskList.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
@@ -61,7 +62,13 @@ const TaskAttachments = ({ attachments }) => {
   )
 }
 
-const TaskList = ({ tasks = [], onTaskUpdated }) => {
+const TaskList = ({
+  tasks = [],
+  onTaskUpdated,
+  hasActiveFilters = false,
+  totalCount = 0,
+  onClearFilters,
+}) => {
   const [updatingId, setUpdatingId] = useState(null)
 
   const handleAction = async (taskId, action) => {
@@ -76,8 +83,30 @@ const TaskList = ({ tasks = [], onTaskUpdated }) => {
     }
   }
 
+  if (tasks.length === 0 && hasActiveFilters) {
+    return (
+      <div className="task-list-wrap">
+        <EmptyState
+          icon="🔍"
+          title="No matching tasks"
+          message="Try adjusting your filters to see more results."
+          actionLabel="Clear filters"
+          onAction={onClearFilters}
+        />
+      </div>
+    )
+  }
+
   if (tasks.length === 0) {
-    return <p className="list-msg">No tasks assigned yet.</p>
+    return (
+      <div className="task-list-wrap">
+        <EmptyState
+          icon="📋"
+          title="No tasks assigned"
+          message="When your manager assigns you work, it will appear here."
+        />
+      </div>
+    )
   }
 
   return (
@@ -87,11 +116,11 @@ const TaskList = ({ tasks = [], onTaskUpdated }) => {
         const canAct = !isClosed
 
         return (
-          <div
+          <article
             className={`Cards ${PRIORITY_CLASS[task.priority]} ${STATUS_CLASS[task.status]}`}
             key={task.id}
           >
-            <div className="header">
+            <header className="card-header">
               <div className="task-meta-left">
                 <span className="task-code">{task.taskCode}</span>
                 <span className={`badge ${PRIORITY_CLASS[task.priority]}`}>
@@ -101,22 +130,25 @@ const TaskList = ({ tasks = [], onTaskUpdated }) => {
                   {STATUS_LABELS[task.status]}
                 </span>
               </div>
-              <div className="assigned-date">
-                Due: {formatDateTime(task.dueDate, task.dueTime)}
-              </div>
-            </div>
+              <time className="assigned-date" dateTime={task.dueDate}>
+                Due {formatDateTime(task.dueDate, task.dueTime)}
+              </time>
+            </header>
 
             <div className="task-body">
-              <div className="task-title">
-                <h2>{task.title}</h2>
-              </div>
-              <div className="task-description">
-                <p>{task.description}</p>
-              </div>
+              <h2 className="task-title">{task.title}</h2>
+              <p className="task-description">{task.description}</p>
+
               <div className="task-extra">
-                <span>Tag: {task.displayTag}</span>
+                <span className="task-extra__item">
+                  <span className="task-extra__label">Tag</span>
+                  {task.displayTag}
+                </span>
                 {task.estimatedCompletion && (
-                  <span>Est: {task.estimatedCompletion}</span>
+                  <span className="task-extra__item">
+                    <span className="task-extra__label">Estimate</span>
+                    {task.estimatedCompletion}
+                  </span>
                 )}
               </div>
 
@@ -126,14 +158,14 @@ const TaskList = ({ tasks = [], onTaskUpdated }) => {
             </div>
 
             {canAct && (
-              <div className="task-actions">
+              <footer className="task-actions">
                 <button
                   type="button"
                   className="btn-complete"
                   disabled={updatingId === task.id}
                   onClick={() => handleAction(task.id, 'completed')}
                 >
-                  Mark Completed
+                  {updatingId === task.id ? 'Updating…' : 'Mark completed'}
                 </button>
                 <button
                   type="button"
@@ -141,15 +173,15 @@ const TaskList = ({ tasks = [], onTaskUpdated }) => {
                   disabled={updatingId === task.id}
                   onClick={() => handleAction(task.id, 'failed')}
                 >
-                  Mark Failed
+                  Mark failed
                 </button>
-              </div>
+              </footer>
             )}
 
             {task.status === 'failed' && task.isOverdue && (
               <p className="auto-fail-note">Auto-failed: past due date/time.</p>
             )}
-          </div>
+          </article>
         )
       })}
     </div>

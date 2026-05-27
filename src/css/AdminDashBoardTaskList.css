@@ -1,106 +1,60 @@
-/* ── Section Title ── */
-.main-container h2 {
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  margin: 0 0 1rem 0;
-  padding: 0 0.25rem;
+.admin-task-list {
+  padding-top: var(--space-md);
 }
 
-/* ── Filters ── */
-.task-filters {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  margin: 0 0 0.75rem 0;
-  padding: 0 0.25rem;
+.admin-task-list .filter-toolbar {
+  margin-bottom: var(--space-lg);
 }
 
-.task-filter {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+.admin-task-list .empty-state {
+  margin-top: var(--space-md);
 }
 
-.task-filter label {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.35);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.task-filter select {
-  background: #1a1a1a;
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
-  padding: 0.55rem 0.75rem;
-  font-size: 13px;
-  outline: none;
-  min-width: 160px;
-}
-
-.task-filter-clear {
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.8);
-  border-radius: 999px;
-  padding: 0.55rem 0.9rem;
-  font-size: 13px;
-  cursor: pointer;
-  height: 38px;
-}
-
-.task-filter-clear:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.task-filter-count {
-  margin-left: auto;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
-  padding-bottom: 0.2rem;
-}
-
-/* ── Task List Wrapper ── */
+/* ── Task table ── */
 .taskList-container {
   width: 100%;
-  background-color: #1a1a1a;
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  max-height: 360px;
   overflow-y: auto;
-  max-height: 260px;
-  box-sizing: border-box;
-
-  /* Custom scrollbar */
+  box-shadow: var(--shadow-card);
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
 }
 
-.taskList-container::-webkit-scrollbar {
-  width: 4px;
+.taskList-header {
+  display: grid;
+  grid-template-columns: 0.75fr 1fr 2fr 0.85fr 0.9fr;
+  padding: 0.75rem var(--space-xl);
+  border-bottom: 0.5px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  background: var(--bg-elevated);
+  z-index: 1;
+  backdrop-filter: blur(8px);
 }
 
-.taskList-container::-webkit-scrollbar-track {
-  background: transparent;
+.taskList-header span {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
 }
 
-.taskList-container::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 999px;
-}
-
-/* ── Single Task Row ── */
 .taskList {
   display: grid;
-  grid-template-columns: 0.8fr 1fr 2fr 0.8fr 0.9fr;
+  grid-template-columns: 0.75fr 1fr 2fr 0.85fr 0.9fr;
   align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
-  transition: background-color 0.2s;
+  padding: 0.9rem var(--space-xl);
+  border-bottom: 0.5px solid var(--border-subtle);
+  transition: background var(--transition);
+}
+
+.taskList--alt {
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .taskList:last-child {
@@ -108,132 +62,59 @@
 }
 
 .taskList:hover {
-  background-color: rgba(255, 255, 255, 0.03);
+  background: var(--bg-hover);
 }
 
-/* ── Column Header Row (optional but recommended) ── */
-.list-msg {
-  color: rgba(255, 255, 255, 0.45);
-  padding: 1rem 1.5rem;
-  margin: 0;
-}
-
-.taskList-header {
-  display: grid;
-  grid-template-columns: 0.8fr 1fr 2fr 0.8fr 0.9fr;
-  padding: 0.75rem 1.5rem;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
-  position: sticky;
-  top: 0;
-  background-color: #1a1a1a;
-  z-index: 1;
-}
-
-.taskList-header span {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.35);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-/* ── Cell Styles ── */
 .assignedTo {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: 400;
-}
-
-.assignedTask {
-  font-size: 14px;
-  color: #fff;
-  font-weight: 400;
-}
-
-.task-id {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
 }
 
 .assignedTask strong {
   display: block;
-  color: #fff;
-  font-size: 14px;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.15rem;
 }
 
 .assignedTask small {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 11px;
+  color: var(--text-muted);
+  font-size: 0.6875rem;
 }
 
-.badge {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 4px 12px;
-  border-radius: 999px;
-  width: fit-content;
-  text-transform: capitalize;
+.task-id {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
-.priority-urgent { background: rgba(247, 95, 95, 0.12); color: #f75f5f; }
-.priority-high { background: rgba(251, 146, 60, 0.12); color: #fb923c; }
-.priority-medium { background: rgba(247, 201, 72, 0.12); color: #f7c948; }
-.priority-low { background: rgba(79, 142, 247, 0.12); color: #4f8ef7; }
-
-.status-todo { background: rgba(79, 142, 247, 0.12); color: #4f8ef7; }
-.status-in_progress { background: rgba(167, 139, 250, 0.12); color: #a78bfa; }
-.status-review { background: rgba(247, 201, 72, 0.12); color: #f7c948; }
-.status-completed { background: rgba(78, 203, 113, 0.12); color: #4ecb71; }
-.status-failed { background: rgba(247, 95, 95, 0.12); color: #f75f5f; }
-
-/* ── Tablet ── */
 @media (max-width: 768px) {
-  .task-filter select {
-    min-width: 140px;
-  }
-
-  .task-filter-count {
-    margin-left: 0;
-  }
-
   .taskList,
   .taskList-header {
     grid-template-columns: 1fr 1.5fr 1fr;
-    padding: 0.85rem 1.25rem;
+    padding: 0.85rem var(--space-lg);
   }
 
-  .assignedTo,
-  .assignedTask {
-    font-size: 13px;
+  .taskList .assignedTo,
+  .taskList-header span:nth-child(2) {
+    display: none;
   }
 }
 
-/* ── Mobile ── */
 @media (max-width: 480px) {
   .taskList-container {
-    border-radius: 12px;
-    max-height: 220px;
+    max-height: 280px;
   }
 
   .taskList,
   .taskList-header {
     grid-template-columns: 1fr 1fr;
-    padding: 0.75rem 1rem;
   }
 
-  /* Hide assignedTo on very small screens */
-  .taskList .assignedTo,
+  .taskList .task-id,
   .taskList-header span:first-child {
     display: none;
-  }
-
-  .assignedTask {
-    font-size: 13px;
-  }
-
-  .status {
-    font-size: 11px;
-    padding: 3px 10px;
   }
 }

@@ -24,7 +24,7 @@ const App = () => {
   }
 
   if (!authChecked) {
-    return <div style={{ minHeight: '100vh', background: '#111' }} />
+    return <div className="dashboard-page" style={{ minHeight: '100vh' }} />
   }
 
   return (

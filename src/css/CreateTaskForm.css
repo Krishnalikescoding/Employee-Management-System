@@ -1,27 +1,27 @@
-/* Create Task — scoped to .create-task-section only */
+/* Create Task — scoped to .create-task-section */
 
 .create-task-section {
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem 2rem 2rem;
+  padding: var(--space-xl) var(--space-2xl) var(--space-md);
   box-sizing: border-box;
 }
 
 .create-form-header {
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-lg);
 }
 
 .create-form-header h2 {
-  color: #fff;
-  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-size: 1.375rem;
   font-weight: 600;
   margin: 0 0 0.35rem;
   letter-spacing: -0.02em;
 }
 
 .create-form-header p {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--text-muted);
   font-size: 0.875rem;
   margin: 0;
   line-height: 1.5;
@@ -29,31 +29,32 @@
 
 .form-alert {
   padding: 0.75rem 1rem;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   font-size: 0.875rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-lg);
 }
 
 .form-alert-error {
-  background: rgba(247, 95, 95, 0.12);
-  border: 0.5px solid rgba(247, 95, 95, 0.35);
+  background: rgba(247, 95, 95, 0.1);
+  border: 0.5px solid rgba(247, 95, 95, 0.3);
   color: #f87171;
 }
 
 .form-alert-success {
-  background: rgba(78, 203, 113, 0.12);
-  border: 0.5px solid rgba(78, 203, 113, 0.35);
+  background: rgba(78, 203, 113, 0.1);
+  border: 0.5px solid rgba(78, 203, 113, 0.3);
   color: #4ecb71;
 }
 
 .create-task-form {
-  background: #1a1a1a;
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 1.5rem;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--space-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .form-section {
@@ -66,13 +67,13 @@
 }
 
 .form-section legend {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 0 0 0.5rem;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 0.5px solid var(--border-subtle);
   width: 100%;
   margin-bottom: 0.25rem;
 }
@@ -80,7 +81,7 @@
 .form-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1rem;
+  gap: var(--space-lg);
   align-items: start;
 }
 
@@ -100,14 +101,14 @@
 
 .field label {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.55);
-  font-weight: 400;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .char-count {
   float: right;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--text-faint);
 }
 
 .create-task-form input[type="text"],
@@ -116,15 +117,15 @@
 .create-task-form input[type="url"],
 .create-task-form select,
 .create-task-form textarea {
-  background: #111;
-  border: 0.5px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: var(--bg-elevated);
+  border: 0.5px solid var(--border-default);
+  color: var(--text-primary);
   font-size: 0.875rem;
   font-family: inherit;
   outline: none;
   width: 100%;
   box-sizing: border-box;
-  transition: border-color 0.2s;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .create-task-form input[type="text"],
@@ -132,12 +133,12 @@
 .create-task-form input[type="time"],
 .create-task-form input[type="url"],
 .create-task-form select {
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   padding: 0.65rem 0.9rem;
 }
 
 .create-task-form textarea {
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 0.75rem 0.9rem;
   min-height: 100px;
   resize: vertical;
@@ -147,12 +148,13 @@
 .create-task-form input:focus,
 .create-task-form select:focus,
 .create-task-form textarea:focus {
-  border-color: rgba(255, 255, 255, 0.35);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .create-task-form input::placeholder,
 .create-task-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.25);
+  color: var(--text-faint);
 }
 
 .create-task-form select {
@@ -165,8 +167,8 @@
 }
 
 .create-task-form select option {
-  background: #111;
-  color: #fff;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
 }
 
 .create-task-form input[type="date"]::-webkit-calendar-picker-indicator,
@@ -181,18 +183,18 @@
   border: none !important;
   background: transparent !important;
   font-size: 0.8125rem !important;
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: var(--text-muted) !important;
 }
 
 .file-list {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--text-muted);
   margin: 0.25rem 0 0;
 }
 
 .workload-hint {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--text-muted);
   margin: 0.15rem 0 0;
 }
 
@@ -204,37 +206,40 @@
   width: 100%;
   margin-top: 0.25rem;
   padding: 0.85rem 1.25rem;
-  background: #fff;
-  color: #111;
+  background: var(--text-primary);
+  color: var(--bg-base);
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.2s, opacity 0.2s;
+  transition: background var(--transition), opacity var(--transition),
+    transform var(--transition);
 }
 
 .createTask-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-1px);
 }
 
 .createTask-btn:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+  transform: none;
 }
 
 @media (max-width: 768px) {
   .create-task-section {
-    padding: 1.25rem 1rem 1.5rem;
+    padding: var(--space-lg);
   }
 
   .create-form-header h2 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
   .create-task-form {
-    padding: 1.15rem;
+    padding: var(--space-lg);
   }
 
   .form-row {

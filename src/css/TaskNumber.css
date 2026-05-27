@@ -1,40 +1,63 @@
-.Tasks {
-  display: flex;
-  gap: 0.75rem;
-  padding: 1.5rem 2rem;
-  background-color: #111;
-  flex-wrap: wrap;
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
 }
 
-.Tasks > div {
-  flex: 1;
-  min-width: 120px;
-  background-color: #1a1a1a;
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 1rem 1.25rem;
+.stat-card {
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #fff;
+  gap: 0.35rem;
+  box-shadow: var(--shadow-card);
+  border-top: 3px solid transparent;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.Tasks > div::before {
-  font-size: 11px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.4);
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.stat-card__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.stat-card__label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.Todo-Task::before { content: "Todo"; border-top: 2px solid #4f8ef7; padding-top: 4px; }
-.InProgress-Task::before { content: "In Progress"; border-top: 2px solid #a78bfa; padding-top: 4px; }
-.Review-Task::before { content: "Review"; border-top: 2px solid #f7c948; padding-top: 4px; }
-.Completed-Task::before { content: "Completed"; border-top: 2px solid #4ecb71; padding-top: 4px; }
-.Failed-Task::before { content: "Failed"; border-top: 2px solid #f75f5f; padding-top: 4px; }
+.stat-todo { border-top-color: #4f8ef7; }
+.stat-in_progress { border-top-color: #a78bfa; }
+.stat-review { border-top-color: #f7c948; }
+.stat-completed { border-top-color: #4ecb71; }
+.stat-failed { border-top-color: #f75f5f; }
 
-@media (max-width: 768px) {
-  .Tasks { padding: 1.25rem; }
-  .Tasks > div { flex: 1 1 calc(50% - 0.75rem); font-size: 20px; }
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-card__value {
+    font-size: 1.5rem;
+  }
 }

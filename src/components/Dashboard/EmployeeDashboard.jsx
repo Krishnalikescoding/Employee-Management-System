@@ -1,18 +1,27 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { getMyTasksRequest } from "../../api/api.js";
+import { useTaskFilters } from "../../hooks/useTaskFilters.js";
 import TaskNumber from "../other/TaskNumber";
 import TaskList from "../TaskList/TaskList";
 import Header from "../other/Header";
 import NotificationBanner from "../other/NotificationBanner";
-import { PRIORITIES, STATUSES } from "../../constants/taskOptions.js";
-import "../../css/TaskList.css";
+import TaskFilters from "../shared/TaskFilters.jsx";
+import DashboardSkeleton from "../shared/DashboardSkeleton.jsx";
 
 const EmployeeDashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [priorityFilter, setPriorityFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("all");
+
+  const {
+    priorityFilter,
+    statusFilter,
+    setPriorityFilter,
+    setStatusFilter,
+    filteredTasks,
+    clearFilters,
+    hasActiveFilters,
+  } = useTaskFilters(tasks);
 
   const loadTasks = useCallback(async () => {
     setLoading(true);
@@ -31,76 +40,53 @@ const EmployeeDashboard = () => {
     loadTasks();
   }, [loadTasks]);
 
-  const filteredTasks = useMemo(() => {
-    return tasks.filter((task) => {
-      const priorityOk = priorityFilter === "all" || task.priority === priorityFilter;
-      const statusOk = statusFilter === "all" || task.status === statusFilter;
-      return priorityOk && statusOk;
-    });
-  }, [tasks, priorityFilter, statusFilter]);
-
   if (loading) {
-    return <div style={{ minHeight: "100vh", background: "#111" }} />;
+    return (
+      <>
+        <Header />
+        <DashboardSkeleton variant="employee" />
+      </>
+    );
   }
 
   return (
-    <div>
+    <div className="dashboard-page">
       <Header />
       <NotificationBanner />
-      {error && <p className="list-msg error-msg">{error}</p>}
-      <div className="task-filters task-filters--employee">
-        <div className="task-filter">
-          <label htmlFor="employee-filter-priority">Priority</label>
-          <select
-            id="employee-filter-priority"
-            value={priorityFilter}
-            onChange={(e) => setPriorityFilter(e.target.value)}
-          >
-            <option value="all">All</option>
-            {PRIORITIES.map((p) => (
-              <option key={p.value} value={p.value}>
-                {p.label}
-              </option>
-            ))}
-          </select>
-        </div>
 
-        <div className="task-filter">
-          <label htmlFor="employee-filter-status">Status</label>
-          <select
-            id="employee-filter-status"
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-          >
-            <option value="all">All</option>
-            {STATUSES.map((s) => (
-              <option key={s.value} value={s.value}>
-                {s.label}
-              </option>
-            ))}
-            <option value="failed">Failed</option>
-          </select>
-        </div>
+      <div className="dashboard-content">
+        {error && <p className="list-msg error-msg">{error}</p>}
 
-        <button
-          type="button"
-          className="task-filter-clear"
-          onClick={() => {
-            setPriorityFilter("all");
-            setStatusFilter("all");
-          }}
-          disabled={priorityFilter === "all" && statusFilter === "all"}
-        >
-          Clear
-        </button>
+        <section className="dashboard-section">
+          <div className="dashboard-section__header">
+            <div>
+              <h2 className="dashboard-section__title">My tasks</h2>
+              <p className="dashboard-section__subtitle">
+                Track and update your assigned work
+              </p>
+            </div>
+          </div>
 
-        <div className="task-filter-count">
-          Showing <strong>{filteredTasks.length}</strong> / {tasks.length}
-        </div>
+          <TaskFilters
+            priorityFilter={priorityFilter}
+            statusFilter={statusFilter}
+            onPriorityChange={setPriorityFilter}
+            onStatusChange={setStatusFilter}
+            onClear={clearFilters}
+            filteredCount={filteredTasks.length}
+            totalCount={tasks.length}
+          />
+        </section>
+
+        <TaskNumber tasks={filteredTasks} />
+
+        <TaskList
+          tasks={filteredTasks}
+          onTaskUpdated={loadTasks}
+          hasActiveFilters={hasActiveFilters}
+          onClearFilters={clearFilters}
+        />
       </div>
-
-      <TaskNumber tasks={filteredTasks} />
-      <TaskList tasks={filteredTasks} onTaskUpdated={loadTasks} />
     </div>
   );
 };
