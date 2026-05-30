@@ -1,0 +1,12 @@
+# Netlify deploy settings for the React (Vite) frontend only.
+# The Express API must be hosted separately (Render, Railway, etc.).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA: React Router routes (/admin, /employee) must serve index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

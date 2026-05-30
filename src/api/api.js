@@ -18,10 +18,19 @@ export const apiRequest = async (path, options = {}) => {
     headers.Authorization = `Bearer ${token}`
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
-    ...options,
-    headers,
-  })
+  let response
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      ...options,
+      headers,
+    })
+  } catch {
+    const hint =
+      API_URL.includes('localhost') && typeof window !== 'undefined'
+        ? ' Set VITE_API_URL in Netlify to your live API URL and redeploy.'
+        : ''
+    throw new Error(`Cannot reach API at ${API_URL}.${hint}`)
+  }
 
   const data = await response.json().catch(() => ({}))
 
