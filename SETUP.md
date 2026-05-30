@@ -104,9 +104,9 @@ cd backend
 npm run dev
 ```
 
-You should see: `API server running at http://localhost:5000`
+You should see: `API server running at http://localhost:5000` (local) or use the deployed API.
 
-Test in browser: `http://localhost:5000/api/health`  
+Test in browser: `https://manthan-infotech-workforce.onrender.com/api/health` (deployed) or `http://localhost:5000/api/health` (local)  
 Should show: `{"status":"ok","database":"connected"}`
 
 Keep this terminal open.

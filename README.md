@@ -130,9 +130,9 @@ CLIENT_URL=http://localhost:5173
 npm run dev
 ```
 
-API runs at **http://localhost:5000**
+API runs at **https://manthan-infotech-workforce.onrender.com** (deployed) or **http://localhost:5000** (local `backend/`)
 
-Verify: open **http://localhost:5000/api/health** — expect `{"status":"ok","database":"connected"}`
+Verify: open **https://manthan-infotech-workforce.onrender.com/api/health** — expect `{"status":"ok","database":"connected"}`
 
 ### 6. Start the frontend
 
@@ -201,7 +201,7 @@ Protected routes require: `Authorization: Bearer <token>`
 1. Connect the `emp-management` folder (or set build command / publish directory).
 2. Build command: `npm run build`
 3. Publish directory: `dist`
-4. Add environment variable: `VITE_API_URL=https://your-api-host.com`
+4. Add environment variable: `VITE_API_URL=https://manthan-infotech-workforce.onrender.com`
 5. Redeploy after changing env vars (Vite bakes them in at build time).
 
 SPA routing is handled via `netlify.toml` and `public/_redirects`.

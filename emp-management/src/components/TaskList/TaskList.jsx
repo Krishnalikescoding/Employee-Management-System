@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import { updateTaskStatusRequest } from '../../api/api.js'
+import { API_URL, updateTaskStatusRequest } from '../../api/api.js'
 import { PRIORITY_CLASS, STATUS_CLASS, STATUS_LABELS } from '../../constants/taskOptions.js'
 import { getAttachmentUrl, isImageAttachment } from '../../utils/attachments.js'
 import EmptyState from '../shared/EmptyState.jsx'
 import '../../css/TaskList.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
 const formatDateTime = (dateStr, timeStr) => {
   if (!dateStr) return ''
