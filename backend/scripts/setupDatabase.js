@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const sqlPath = path.resolve(__dirname, '../../database/01_phase1_schema_and_seed.sql')
+const sqlPath = path.resolve(__dirname, '../database/01_phase1_schema_and_seed.sql')
 const dbName = process.env.DB_NAME || 'employee_management'
 const shouldReset = process.argv.includes('--reset')
 
@@ -66,7 +66,7 @@ run().catch((error) => {
   if (error.code === 'ECONNREFUSED') {
     console.error('MySQL is not running. Start MySQL in XAMPP (or your MySQL service), then run again.')
   } else if (error.code === 'ER_ACCESS_DENIED_ERROR') {
-    console.error('Wrong username/password. Update DB_USER and DB_PASSWORD in server/.env')
+    console.error('Wrong username/password. Update DB_USER and DB_PASSWORD in backend/.env')
   } else {
     console.error(error.message)
   }

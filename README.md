@@ -54,16 +54,16 @@ Employee-Management-System/
 │   │   ├── hooks/             # useTaskFilters, etc.
 │   │   └── constants/         # Branding, task options
 │   └── netlify.toml
-├── server/                    # Express REST API
+├── backend/                   # Express API + MySQL schema
+│   ├── database/
+│   │   ├── 01_phase1_schema_and_seed.sql
+│   │   └── 02_task_enhancements.sql
 │   ├── src/
 │   │   ├── controllers/
 │   │   ├── routes/
 │   │   ├── middleware/
 │   │   └── config/
 │   └── scripts/               # DB setup & migrations
-├── database/                  # SQL schema & migrations
-│   ├── 01_phase1_schema_and_seed.sql
-│   └── 02_task_enhancements.sql
 └── SETUP.md                   # Detailed setup & troubleshooting
 ```
 
@@ -93,7 +93,7 @@ Start the MySQL service (e.g. via **XAMPP Control Panel** → Start **MySQL**).
 ### 3. Set up the database
 
 ```bash
-cd server
+cd backend
 npm install
 npm run db:setup
 ```
@@ -169,7 +169,7 @@ Log in from `/` first. Opening `/admin` or `/employee` directly without a sessio
 Keep these three things running:
 
 1. **MySQL** service
-2. Backend — `cd server && npm run dev`
+2. Backend — `cd backend && npm run dev`
 3. Frontend — `cd emp-management && npm run dev`
 
 ---
@@ -208,7 +208,7 @@ SPA routing is handled via `netlify.toml` and `public/_redirects`.
 
 ### Backend
 
-Host the `server/` folder on any Node.js platform (Render, Railway, Fly.io, VPS, etc.).
+Host the `backend/` folder on any Node.js platform (Render, Railway, Fly.io, VPS, etc.).
 
 Set these environment variables on the host:
 
@@ -222,9 +222,9 @@ Set these environment variables on the host:
 
 | Problem | Fix |
 |---------|-----|
-| `database: disconnected` | Start MySQL; run `npm run db:setup` in `server/` |
-| Login fails | Check `server/.env` credentials; confirm users exist in DB |
-| CORS error | Add your frontend URL to `CLIENT_URL` in `server/.env` |
+| `database: disconnected` | Start MySQL; run `npm run db:setup` in `backend/` |
+| Login fails | Check `backend/.env` credentials; confirm users exist in DB |
+| CORS error | Add your frontend URL to `CLIENT_URL` in `backend/.env` |
 | Blank admin/employee page | Log in from `/` first |
 | API unreachable from Netlify | Set `VITE_API_URL` to your live API URL and redeploy |
 
@@ -242,7 +242,7 @@ See [SETUP.md](./SETUP.md) for more detailed setup options and troubleshooting.
 | `npm run build` | Production build |
 | `npm run preview` | Preview production build |
 
-### Backend (`server/`)
+### Backend (`backend/`)
 
 | Command | Description |
 |---------|-------------|

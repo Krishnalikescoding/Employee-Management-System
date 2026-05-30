@@ -1,5 +1,5 @@
 # Netlify deploy settings for the React (Vite) frontend only.
-# The Express API must be hosted separately (Render, Railway, etc.).
+# The Express API (backend/) must be hosted separately (Render, Railway, etc.).
 
 [build]
   command = "npm run build"

@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const sqlPath = path.resolve(__dirname, '../../database/02_task_enhancements.sql')
+const sqlPath = path.resolve(__dirname, '../database/02_task_enhancements.sql')
 
 const run = async () => {
   console.log('Running task schema migration...')

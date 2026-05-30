@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users (
 ) ENGINE=InnoDB;
 
 -- Passwords stored as plain text (learning project only — not for production)
--- Tasks schema: run database/02_task_enhancements.sql after this file (npm run db:migrate)
+-- Tasks schema: run backend/database/02_task_enhancements.sql after this file (npm run db:migrate)
 INSERT IGNORE INTO users (email, password, first_name, role) VALUES
 ('admin@gmail.com',  'mi@123', 'Dhananjay',  'admin'),
 ('empganesh@gmail.com',  'emp1@123',    'Ganesh',  'employee'),
