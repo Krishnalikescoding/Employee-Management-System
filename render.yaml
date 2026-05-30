@@ -1,0 +1,13 @@
+# Render Blueprint — deploy from repo root; API lives in backend/
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: manthan-infotech-workforce
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
