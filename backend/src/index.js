@@ -16,10 +16,13 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 
-const allowedOrigins = ['http://localhost:5173', 'https://manthan-infotech-workforce.onrender.com']
+const allowedOrigins = (
+  process.env.ALLOWED_ORIGINS ||
+  'http://localhost:5173,https://manthan-infotech-workforce.onrender.com'
+)
   .split(',')
   .map((url) => url.trim())
-  .filter(Boolean)
+  .filter(Boolean);
 
 app.use(
   cors({
