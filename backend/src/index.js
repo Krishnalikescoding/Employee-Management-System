@@ -17,8 +17,8 @@ const app = express()
 const PORT = process.env.PORT || 5000
 
 const allowedOrigins = (
-  process.env.ALLOWED_ORIGINS ||
-  'http://localhost:5173,https://manthan-infotech-workforce.onrender.com'
+  process.env.CLIENT_URL ||
+  'http://localhost:5173'
 )
   .split(',')
   .map((url) => url.trim())
