@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/index.js",
-    "start": "node src/index.js",
+    "start": "node index.js",
     "db:setup": "node scripts/setupDatabase.js",
     "db:reset": "node scripts/setupDatabase.js --reset",
     "db:fix-passwords": "node scripts/fixPasswords.js",

@@ -206,11 +206,17 @@ Protected routes require: `Authorization: Bearer <token>`
 
 SPA routing is handled via `netlify.toml` and `public/_redirects`.
 
-### Backend
+### Backend (Render)
 
-Host the `backend/` folder on any Node.js platform (Render, Railway, Fly.io, VPS, etc.).
+| Setting | Value |
+|---------|--------|
+| **Root Directory** | `backend` |
+| **Build Command** | `npm install` |
+| **Start Command** | `npm start` |
 
-Set these environment variables on the host:
+Do **not** use `node backend/index.js` — that causes `backend/backend/index.js` not found.
+
+This repo includes [`render.yaml`](./render.yaml) for one-click settings. Set these environment variables on the host:
 
 - `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`
 - `JWT_SECRET`

@@ -16,7 +16,7 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 
-const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+const allowedOrigins = ['http://localhost:5173', 'https://manthan-infotech-workforce.onrender.com']
   .split(',')
   .map((url) => url.trim())
   .filter(Boolean)
@@ -50,7 +50,11 @@ app.get('/api/health', async (_req, res) => {
     await pool.query('SELECT 1')
     res.json({ status: 'ok', database: 'connected' })
   } catch (error) {
-    res.status(503).json({ status: 'error', database: 'disconnected', message: error.message })
+    res.status(503).json({
+      status: 'error',
+      database: 'disconnected',
+      message: error.message || error.code || String(error),
+    })
   }
 })
 
@@ -64,6 +68,6 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ message: 'Internal server error' })
 })
 
-app.listen(PORT, () => {
-  console.log(`API server running at http://localhost:${PORT}`)
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`API server listening on port ${PORT}`)
 })

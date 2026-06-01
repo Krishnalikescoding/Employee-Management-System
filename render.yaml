@@ -1,5 +1,6 @@
-# Render Blueprint — deploy from repo root; API lives in backend/
-# https://render.com/docs/blueprint-spec
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Existing services do NOT pick this up until you change Start Command in the dashboard
+# or recreate the service from this blueprint.
 
 services:
   - type: web
@@ -7,6 +8,7 @@ services:
     runtime: node
     rootDir: backend
     buildCommand: npm install
+    # Use npm start — NOT "node backend/index.js" (that doubles the backend path)
     startCommand: npm start
     envVars:
       - key: NODE_VERSION

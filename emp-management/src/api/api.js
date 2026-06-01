@@ -26,11 +26,12 @@ export const apiRequest = async (path, options = {}) => {
       headers,
     })
   } catch {
-    const hint =
-      API_URL.includes('localhost') && typeof window !== 'undefined'
-        ? ' Set VITE_API_URL in Netlify to your live API URL and redeploy.'
-        : ''
-    throw new Error(`Cannot reach API at ${API_URL}.${hint}`)
+    throw new Error(
+      `Cannot reach API at ${API_URL}. ` +
+        'Open that URL/api/health in your browser first (Render free tier may take ~60s to wake). ' +
+        'If health works but login fails, fix database env vars on Render. ' +
+        'If using Netlify, set CLIENT_URL on Render to your Netlify site URL.'
+    )
   }
 
   const data = await response.json().catch(() => ({}))
